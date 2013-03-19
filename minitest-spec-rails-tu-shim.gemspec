@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "minitest-spec-rails-tu-shim"
-  spec.version       = '1.9.3.1'
+  spec.version       = '1.9.3.2'
   spec.authors       = ["Nobuyoshi Nakada", "Shota Fukumori", "akr", "unak", "Ryan Davis", "Aaron Patterson", "Yuki Sonoda", "NARUSE, Yui", "Yusuke Endoh", "Eric Hodel", "Kenta Murata"]
   spec.email         = ["nobu@ruby-lang.org", "sorah@tubusu.net", "ryand-ruby@zenspider.com", "aaron.patterson@gmail.com", "ugui@yugui.jp", "drbrain@segment7.net", "mrkn+github@mrkn.jp"]
   spec.description   = 'Redistribution of lib/test source directory from Ruby 1.9.3p392.'
