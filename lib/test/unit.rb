@@ -1,3 +1,9 @@
+if RUBY_VERSION > "1.8.7"
+  warn "\nPlease uninstall/unbundle the minitest-spec-rails-tu-shim!!!"
+  warn "This gem is for 1.8 only!!!\n"
+  exit 1
+end
+
 # test/unit compatibility layer using minitest.
 
 require 'minitest/unit'
