@@ -116,7 +116,7 @@ module Test
           warn "#{caller(1)[0]}: warning: Parallel running disabled because can't get path to ruby; run specify with --ruby argument"
           options[:parallel] = nil
         else
-          options[:ruby] ||= RbConfig.ruby
+          options[:ruby] ||= `which ruby`.chomp
         end
 
         true
@@ -237,9 +237,8 @@ module Test
 
       class Worker
         def self.launch(ruby,args=[])
-          io = IO.popen([*ruby,
-                        "#{File.dirname(__FILE__)}/unit/parallel.rb",
-                        *args], "rb+")
+          args = [ruby, "#{File.dirname(__FILE__)}/unit/parallel.rb", args].flatten
+          io = IO.popen(args, "rb+")
           new(io, io.pid, :waiting)
         end
 
@@ -447,8 +446,8 @@ module Test
               when /^done (.+?)$/
                 r = Marshal.load($1.unpack("m")[0])
                 result << r[0..1] unless r[0..1] == [nil,nil]
-                rep    << {file: worker.real_file,
-                           report: r[2], result: r[3], testcase: r[5]}
+                rep    << {:file => worker.real_file,
+                           :report => r[2], :result => r[3], :testcase => r[5]}
                 $:.push(*r[4]).uniq!
               when /^p (.+?)$/
                 del_jobs_status
@@ -485,8 +484,8 @@ module Test
                   when /^done (.+?)$/
                     r = Marshal.load($1.unpack("m")[0])
                     result << r[0..1] unless r[0..1] == [nil,nil]
-                    rep    << {file: worker.real_file,
-                               report: r[2], result: r[3], testcase: r[5]}
+                    rep    << {:file => worker.real_file,
+                               :report => r[2], :result => r[3], :testcase => r[5]}
                     $:.push(*r[4]).uniq!
                     @ios.delete(io)
                   end
