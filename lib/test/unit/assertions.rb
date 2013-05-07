@@ -171,7 +171,7 @@ module Test
               exp_comment = " (#{exp.class})"
               act_comment = " (#{act.class})"
             end
-          elsif !Encoding.compatible?(exp_str, act_str)
+          elsif defined? Encoding && !Encoding.compatible?(exp_str, act_str)
             if exp.is_a?(String) && act.is_a?(String)
               exp_str = exp.dump
               act_str = act.dump
